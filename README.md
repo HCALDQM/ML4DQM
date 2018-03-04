@@ -1,9 +1,10 @@
 # ML4DQM
 Data preparation and analysis using ML to detect anomalies in HCAL.
-The goal of the project is to:
+The goal of the project is to perform a feasibility to:
    * create a tool to assist the shifters in inspecting the quality plots from DQM in real time and spot potential problems with the small possible delay
    * systematically study the possible net architectures and compare their performance on real data from HCAL (NN? CNN? AE? CAE?)
    * study different eras corresponding to different detector configurations (2016, 2017, 2018) and different dataset (ZeroBias, JetHT, ...)
+   * lay the foundation for ML applications in other contexts
 
 
 ### Data Preparation
@@ -20,8 +21,8 @@ To reprocess the data selecting a different set of histos one could:
 
 
 ### Data Location
-histograms: `/eos/cms/store/group/dpg_hcal/comm_hcal/ML4DQM/process_2017/submit_20180304_142701/` (1000 LS from run 306138)
-numpy: `data/HCAL_digi+rechit_occ.hdf5`
+   * histograms: `/eos/cms/store/group/dpg_hcal/comm_hcal/ML4DQM/process_2017/submit_20180304_142701/` (1000 LS from run 306138)
+   * numpy: `data/HCAL_digi+rechit_occ.hdf5`
 
 
 ### Models
