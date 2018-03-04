@@ -35,7 +35,7 @@ run = 306138
 #lumis = np.arange(806,838+1)
 #lumis = np.arange(100,1199+1)
 #lumis = lumis[lumis != 470]
-startLS, stopLS, chunkLS = 1, 10+1, 1
+startLS, stopLS, chunkLS = 1, 1000+1, 1
 
 # Specify list of histograms to convert
 hist_list = [
@@ -63,6 +63,9 @@ input_dir='/eos/cms/store/group/dpg_hcal/comm_hcal/ML4DQM/process_2017/submit_20
 # ROOT doesnt support loading arbitrarily large numbers of TFiles
 # (TChain only for TTrees, not histos)
 for it, ls in enumerate(range(startLS,stopLS,chunkLS)):
+
+    if ls==742:
+        continue
 
     start, stop = ls, ls+chunkLS
     if stop > stopLS:
