@@ -10,4 +10,4 @@ how to setup the environment to process data and output images
 
 
 # Data Location
-`/eos/cms/store/group/dpg_hcal/comm_hcal/ML4DQM`
+`/eos/cms/store/group/dpg_hcal/comm_hcal/ML4DQM/process_2017/submit_20180304_142701/`

@@ -35,7 +35,7 @@ run = 306138
 #lumis = np.arange(806,838+1)
 #lumis = np.arange(100,1199+1)
 #lumis = lumis[lumis != 470]
-startLS, stopLS, chunkLS = 1000, 1000+1, 1
+startLS, stopLS, chunkLS = 1, 10+1, 1
 
 # Specify list of histograms to convert
 hist_list = [
