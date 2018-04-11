@@ -1,10 +1,12 @@
 import numpy as np
 import pickle
 import os
+from keras import backend as K
 import h5py
 from keras import callbacks
 import random
 import logging
+import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
@@ -74,8 +76,7 @@ def hotregion(image,xdim,ydim):
             
         for j in range(y1,y2):
                 
-            tempX[j,i]=np.max(image)
-                
+            tempX[j,i]=1e4                
     return tempX
 
 def randomregion(image,xdim,ydim):
@@ -113,4 +114,80 @@ def randomregion(image,xdim,ydim):
             te2= j-y1
             tempX[j,i]=random_noise_region[te,te2]
                 
+<<<<<<< HEAD
     return tempX
+
+
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    
+def plot_loss(data, title):
+    """Plots the training and validation loss"""
+    plt.figure()
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title(title)
+    plt.plot(data.history["loss"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
+    plt.plot(data.history["val_loss"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
+    plt.legend(["Train", "Validation"], loc="upper right", frameon=False)
+    #plt.yscale("symlog")
+    plt.show();
+
+    
+def plot_acc(data, title):
+    """Plots the training and validation loss"""
+    plt.figure()
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title(title)
+    plt.plot(data.history["acc"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
+    plt.plot(data.history["val_acc"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
+    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
+    #plt.yscale("symlog")
+    plt.show();
+    
+    
+def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
+    
+    if K.image_data_format() == 'channels_first':
+
+        Xtrain = Xtrain.reshape(Xtrain.shape[0], 1, img_rows, img_cols)
+        Xtest = Xtest.reshape(Xtest.shape[0], 1, img_rows, img_cols)
+        input_shape = (1, img_rows, img_cols)
+    else:
+        Xtrain = Xtrain.reshape(Xtrain.shape[0], img_rows, img_cols, 1)
+        Xtest = Xtest.reshape(Xtest.shape[0], img_rows, img_cols, 1)
+        input_shape = (img_rows, img_cols, 1)
+
+    return Xtrain,Xtest,input_shape
