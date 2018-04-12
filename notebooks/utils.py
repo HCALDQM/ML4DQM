@@ -114,7 +114,7 @@ def randomregion(image,xdim,ydim):
             te2= j-y1
             tempX[j,i]=random_noise_region[te,te2]
                 
-<<<<<<< HEAD
+
     return tempX
 
 
@@ -152,29 +152,30 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     
-def plot_loss(data, title):
-    """Plots the training and validation loss"""
+def plot_loss(data, title,yscale="linear"):     
+    """ Plots the training and validation loss yscale can be: linear,log,symlog """
     plt.figure()
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.title(title)
     plt.plot(data.history["loss"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
     plt.plot(data.history["val_loss"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
-    plt.legend(["Train", "Validation"], loc="upper right", frameon=False)
-    #plt.yscale("symlog")
+    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
+    plt.yscale(yscale)
     plt.show();
 
     
-def plot_acc(data, title):
-    """Plots the training and validation loss"""
+def plot_acc(data, title,yscale="linear"):
+    """ Plots the training and validation accuracy 
+    yscale can be: linear,log,symlog  """
     plt.figure()
     plt.xlabel("Epoch")
-    plt.ylabel("Loss")
+    plt.ylabel("Acc")
     plt.title(title)
     plt.plot(data.history["acc"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
     plt.plot(data.history["val_acc"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
     plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
-    #plt.yscale("symlog")
+    plt.yscale(yscale)
     plt.show();
     
     
