@@ -7,13 +7,12 @@ import h5py
 from keras import callbacks
 import random
 import logging
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
 #helper fucntions
-<<<<<<< HEAD
 #def get_data(file_name,group='EBOccupancyTask_EBOT_rec_hit_occupancy',data_type='good_2016',preprocess_level=0):
 #   "picks samples out of a hdf file and return a numpy array"
 #   data_folder=os.environ["DATA"].replace("good_2016",data_type)
@@ -23,17 +22,6 @@ logger = logging.getLogger(__name__)
 #   ret_array=preprocess(ret_array,preprocess_level)
 #   logging.debug("Supplying "+str(ret_array.shape[0])+" samples")
 #   return ret_array
-=======
-def get_data(file_name,group='EBOccupancyTask_EBOT_rec_hit_occupancy',data_type='good_2016',preprocess_level=0):
-   "picks samples out of a hdf file and return a numpy array"
-   data_folder=os.environ["DATA"].replace("good_2016",data_type)
-   input_file=h5py.File(data_folder+"/"+file_name,'r')
-   logging.debug("Loading data from file: "+file_name)
-   ret_array=np.array((input_file[group]))
-   ret_array=preprocess(ret_array,preprocess_level)
-   logging.debug("Supplying "+str(ret_array.shape[0])+" samples")
-   return ret_array
->>>>>>> master
 
 
 def killregion(image,xdim,ydim):  
@@ -89,12 +77,7 @@ def hotregion(image,xdim,ydim):
             
         for j in range(y1,y2):
                 
-<<<<<<< HEAD
             tempX[j,i]=1e4                
-=======
-            tempX[j,i]=np.max(image)
-                
->>>>>>> master
     return tempX
 
 def randomregion(image,xdim,ydim):
@@ -132,70 +115,69 @@ def randomregion(image,xdim,ydim):
             te2= j-y1
             tempX[j,i]=random_noise_region[te,te2]
                 
-<<<<<<< HEAD
 
     return tempX
 
 
-def plot_confusion_matrix(cm, classes,
-                          normalize=False,
-                          title='Confusion matrix',
-                          cmap=plt.cm.Blues):
-    """
-    This function prints and plots the confusion matrix.
-    Normalization can be applied by setting `normalize=True`.
-    """
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
-    else:
-        print('Confusion matrix, without normalization')
-
-    print(cm)
-
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
-    plt.yticks(tick_marks, classes)
-
-    fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, format(cm[i, j], fmt),
-                 horizontalalignment="center",
-                 color="white" if cm[i, j] > thresh else "black")
-
-    plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
+#def plot_confusion_matrix(cm, classes,
+#                          normalize=False,
+#                          title='Confusion matrix',
+#                          cmap=plt.cm.Blues):
+#    """
+#    This function prints and plots the confusion matrix.
+#    Normalization can be applied by setting `normalize=True`.
+#    """
+#    if normalize:
+#        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+#        print("Normalized confusion matrix")
+#    else:
+#        print('Confusion matrix, without normalization')
+#
+#    print(cm)
+#
+#    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+#    plt.title(title)
+#    plt.colorbar()
+#    tick_marks = np.arange(len(classes))
+#    plt.xticks(tick_marks, classes, rotation=45)
+#    plt.yticks(tick_marks, classes)
+#
+#    fmt = '.2f' if normalize else 'd'
+#    thresh = cm.max() / 2.
+#    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+#        plt.text(j, i, format(cm[i, j], fmt),
+#                 horizontalalignment="center",
+#                 color="white" if cm[i, j] > thresh else "black")
+#
+#    plt.tight_layout()
+#    plt.ylabel('True label')
+#    plt.xlabel('Predicted label')
     
-def plot_loss(data, title,yscale="linear"):     
-    """ Plots the training and validation loss yscale can be: linear,log,symlog """
-    plt.figure()
-    plt.xlabel("Epoch")
-    plt.ylabel("Loss")
-    plt.title(title)
-    plt.plot(data.history["loss"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
-    plt.plot(data.history["val_loss"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
-    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
-    plt.yscale(yscale)
-    plt.show();
+#def plot_loss(data, title,yscale="linear"):     
+#    """ Plots the training and validation loss yscale can be: linear,log,symlog """
+#    plt.figure()
+#    plt.xlabel("Epoch")
+#    plt.ylabel("Loss")
+#    plt.title(title)
+#    plt.plot(data.history["loss"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
+#    plt.plot(data.history["val_loss"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
+#    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
+#    plt.yscale(yscale)
+#    plt.show();
+
     
-    
-def plot_acc(data, title,yscale="linear"):
-    """ Plots the training and validation accuracy 
-    yscale can be: linear,log,symlog  """
-    plt.figure()
-    plt.xlabel("Epoch")
-    plt.ylabel("Acc")
-    plt.title(title)
-    plt.plot(data.history["acc"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
-    plt.plot(data.history["val_acc"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
-    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
-    plt.yscale(yscale)
-    plt.show();
+#def plot_acc(data, title,yscale="linear"):
+#    """ Plots the training and validation accuracy 
+#    yscale can be: linear,log,symlog  """
+#    plt.figure()
+#    plt.xlabel("Epoch")
+#    plt.ylabel("Acc")
+#    plt.title(title)
+#    plt.plot(data.history["acc"])#, linestyle=line_styles[0], color=color_palette["Indigo"][900], linewidth=3)
+#    plt.plot(data.history["val_acc"])#, linestyle=line_styles[2], color=color_palette["Teal"][300], linewidth=3)
+#    plt.legend(["Train", "Validation"])#, loc="upper right", frameon=False)
+#    plt.yscale(yscale)
+#    plt.show();
     
     
 def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
@@ -211,6 +193,3 @@ def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
         input_shape = (img_rows, img_cols, 1)
 
     return Xtrain,Xtest,input_shape
-=======
-    return tempX
->>>>>>> master
