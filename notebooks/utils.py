@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(mes
 logger = logging.getLogger(__name__)
 
 #helper fucntions
+<<<<<<< HEAD
 #def get_data(file_name,group='EBOccupancyTask_EBOT_rec_hit_occupancy',data_type='good_2016',preprocess_level=0):
 #   "picks samples out of a hdf file and return a numpy array"
 #   data_folder=os.environ["DATA"].replace("good_2016",data_type)
@@ -22,6 +23,17 @@ logger = logging.getLogger(__name__)
 #   ret_array=preprocess(ret_array,preprocess_level)
 #   logging.debug("Supplying "+str(ret_array.shape[0])+" samples")
 #   return ret_array
+=======
+def get_data(file_name,group='EBOccupancyTask_EBOT_rec_hit_occupancy',data_type='good_2016',preprocess_level=0):
+   "picks samples out of a hdf file and return a numpy array"
+   data_folder=os.environ["DATA"].replace("good_2016",data_type)
+   input_file=h5py.File(data_folder+"/"+file_name,'r')
+   logging.debug("Loading data from file: "+file_name)
+   ret_array=np.array((input_file[group]))
+   ret_array=preprocess(ret_array,preprocess_level)
+   logging.debug("Supplying "+str(ret_array.shape[0])+" samples")
+   return ret_array
+>>>>>>> master
 
 
 def killregion(image,xdim,ydim):  
@@ -77,7 +89,12 @@ def hotregion(image,xdim,ydim):
             
         for j in range(y1,y2):
                 
+<<<<<<< HEAD
             tempX[j,i]=1e4                
+=======
+            tempX[j,i]=np.max(image)
+                
+>>>>>>> master
     return tempX
 
 def randomregion(image,xdim,ydim):
@@ -115,6 +132,7 @@ def randomregion(image,xdim,ydim):
             te2= j-y1
             tempX[j,i]=random_noise_region[te,te2]
                 
+<<<<<<< HEAD
 
     return tempX
 
@@ -193,3 +211,6 @@ def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
         input_shape = (img_rows, img_cols, 1)
 
     return Xtrain,Xtest,input_shape
+=======
+    return tempX
+>>>>>>> master
