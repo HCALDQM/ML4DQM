@@ -23,7 +23,6 @@ logger = logging.getLogger(__name__)
 #   logging.debug("Supplying "+str(ret_array.shape[0])+" samples")
 #   return ret_array
 
-
 def killregion(image,xdim,ydim):  
     tempX=image.copy()
     x1=np.min(xdim)
@@ -193,3 +192,8 @@ def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
         input_shape = (img_rows, img_cols, 1)
 
     return Xtrain,Xtest,input_shape
+
+
+def makedistancemap(image1,image2):
+    d=abs(image1-image2)
+    return d
