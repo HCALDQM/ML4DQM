@@ -77,7 +77,7 @@ def hotregion(image,xdim,ydim):
             
         for j in range(y1,y2):
                 
-            tempX[j,i]=1e4                
+            tempX[j,i]= 3000 #1e4                
     return tempX
 
 def randomregion(image,xdim,ydim):

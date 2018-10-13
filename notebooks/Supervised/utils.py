@@ -77,7 +77,63 @@ def hotregion(image,xdim,ydim):
             
         for j in range(y1,y2):
                 
-            tempX[j,i]=1e4                
+            tempX[j,i]= 1e4                
+    return tempX
+
+def killRBX(image,xdim,ydim):
+    tempX=image.copy()
+    x1=np.min(xdim)
+    x2=np.max(xdim)
+    y1=np.min(ydim)
+    y2=np.max(ydim)
+    if x1==x2 | y1==y2:
+        print "error, no change is made on image"
+    #if tempX.ndim ==3:
+    #    
+    #    for k in range(tempX.shape[0]):
+    #        
+    #        for i in range(x1,x2):
+    #            
+    #            for j in range(y1,y2):
+    #                
+    #                tempX[k,j,i]=0
+    #
+    #else:
+        
+    for i in range(x1,x2):
+            
+        for j in range(y1,y2):
+                
+            tempX[j][i]=0
+                
+    return tempX
+
+
+def hotTime(movie,aff,xdim,ydim):
+    tempX = movie.copy()
+    x1=xdim[0]
+    x2=xdim[1]
+    y1=ydim[0]
+    y2=ydim[1]
+    f1 = aff[0]
+    f2 = aff[1]
+    for i in range(f1,f2):
+        for j in range(x1,x2):
+            for k in range(y1,y2):
+                tempX[i,k,j] = 3.5e3
+    return tempX
+def deadTime(movie,aff,xdim,ydim):
+    tempX = movie.copy()
+    x1=xdim[0]
+    x2=xdim[1]
+    y1=ydim[0]
+    y2=ydim[1]
+    f1 = aff[0]
+    f2 = aff[1]
+    for i in range(f1,f2):
+        for j in range(x1,x2):
+            for k in range(y1,y2):
+                tempX[i,k,j] = 0
     return tempX
 
 def randomregion(image,xdim,ydim):
@@ -191,5 +247,19 @@ def check_test_and_train_images_format(Xtrain,Xtest,img_rows, img_cols):
         Xtrain = Xtrain.reshape(Xtrain.shape[0], img_rows, img_cols, 1)
         Xtest = Xtest.reshape(Xtest.shape[0], img_rows, img_cols, 1)
         input_shape = (img_rows, img_cols, 1)
+
+    return Xtrain,Xtest,input_shape
+
+def check_test_and_train_images_format_movies(Xtrain,Xtest, movie_length, img_rows, img_cols):
+    
+    if K.image_data_format() == 'channels_first':
+
+        Xtrain = Xtrain.reshape(Xtrain.shape[0], 1, movie_length, img_rows, img_cols)
+        Xtest = Xtest.reshape(Xtest.shape[0], 1, movie_length, img_rows, img_cols)
+        input_shape = (1, movie_length, img_rows, img_cols)
+    else:
+        Xtrain = Xtrain.reshape(Xtrain.shape[0], movie_length, img_rows, img_cols, 1)
+        Xtest = Xtest.reshape(Xtest.shape[0], movie_length, img_rows, img_cols, 1)
+        input_shape = (movie_length, img_rows, img_cols, 1)
 
     return Xtrain,Xtest,input_shape
